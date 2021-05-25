@@ -1,25 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useState} from "react";
 
+let move = props => {
+    return <button onClick={props.playMove}>{props.icon}</button>
+}
+
+let Game = () => {
+    //Status
+    //	scores
+    let [playerScore, setPlayerScore] = useState(0);
+    let [botScore, setBotScore] = useState(0);
+    //	status
+    let [matchStatus, setMatchStatus] = useState("VS")
+
+    //Scoreboard
+    <Scoreboard playerPoints={playerScore} botPoints={botScore} />
+
+    //bot moves
+    <botMoves />
+    //Status
+    <Status/>
+    //Player moves
+    <playerMoves />
+}
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <Game />;
 }
 
 export default App;
