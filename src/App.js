@@ -2,16 +2,12 @@ import './App.css';
 import React, {useState} from "react";
 import playMove from "./gameLogic.js";
 
-let Move = props => {
-    return <button onClick={() => playMove(props.type, props.handler)} className={props.className} >{props.type}</button>
-}
-
 let BotMoves = props => {
     return (
 	<div className="move-container">
-	    <Move className="move-icon-ai" type="R" />
-	    <Move className="move-icon-ai" type="P"/>
-	    <Move className="move-icon-ai" type="S"/>
+	    <button className="move-icon-ai">R</button>
+	    <button className="move-icon-ai">P</button>
+	    <button className="move-icon-ai">S</button>
 	</div>
     )
 }
@@ -19,9 +15,9 @@ let BotMoves = props => {
 let PlayerMoves = props => {
     return (
 	<div className="move-container">
-	    <Move handler={props.handler} className="move-icon" type="rock"/>
-	    <Move handler={props.handler} className="move-icon" type="paper"/>
-	    <Move handler={props.handler} className="move-icon" type="scissors"/>
+	    <button onClick={() => playMove("rock", props.handler)} className="move-icon" >R</button>
+	    <button onClick={() => playMove("paper", props.handler)} className="move-icon" >P</button>
+	    <button onClick={() => playMove("scissors", props.handler)} className="move-icon" >S</button>
 	</div>
     )
 }
