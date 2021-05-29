@@ -34,14 +34,14 @@ let Score = props => {
 let Scoreboard = props => {
     return (
     <div className="scoreboard">
-	<Score name="Bot" points={props.botScore} />
-	<Score name="Player" points={props.playerScore} />
+	<Score name="Bot" points={props.scores.bot} />
+	<Score name="Player" points={props.scores.player} />
     </div>
     )
 }
 
 let Status = props => {
-    return <p id="move-result" className="versus">{props.result}</p>
+    return <p style={{"color": props.data.color}} className="versus">{props.data.text}</p>
 }
 
 let Game = () => {
@@ -49,8 +49,25 @@ let Game = () => {
 	"bot": 0,
 	"player": 0,
     });
-    let [matchStatus, setMatchStatus] = useState("VS")
-
+    let [matchStatus, setMatchStatus] = useState({
+	"text": "VS",
+	"color": "white",
+    })
+    let changeStatus = result => {
+	let statusCopy = {...matchStatus}
+	statusCopy.text = result;
+	switch (statusCopy.text) {
+	    case "Lose":
+		statusCopy.color = "red"
+		break;
+	    case "Win":
+		statusCopy.color = "green"
+		break;
+	    default:
+		statusCopy.color = "white"
+	}
+	setMatchStatus(statusCopy)
+    }
     let changeScores = (result) => {
 	if (result === "TIE") {
 	    return
@@ -67,7 +84,7 @@ let Game = () => {
     }
     let changeState = (result) =>{
 	console.log(result)
-	setMatchStatus(result)
+	changeStatus(result)
 	changeScores(result)
     }
     return (
@@ -75,7 +92,7 @@ let Game = () => {
 	<div>
 	    <Scoreboard scores={Scores}/>
 	    <BotMoves/>
-	    <Status result={matchStatus}/>
+	    <Status data={matchStatus}/>
 	    <PlayerMoves handler={changeState}/>
 	</div>
 	</div>
