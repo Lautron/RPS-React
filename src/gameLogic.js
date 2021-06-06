@@ -27,24 +27,26 @@ function botChooseMove() {
 }
 
 
-function playMove(move, changeState) {
+function playMove(move, helpers) {
     let botMove = botChooseMove()
 
     if (move === botMove) {
-        changeState('TIE')
+        helpers.changeState('TIE')
+	helpers.changeBotColor(botMove)
 	console.log("This works")
 	return 
     }
 
+    helpers.changeBotColor(botMove)
     switch (botMove){    
 	case "rock":
-	    changeState(result.rock[move])
+	    helpers.changeState(result.rock[move])
 	    break;
 	case "paper":
-	    changeState(result.paper[move])
+	    helpers.changeState(result.paper[move])
 	    break;
 	case "scissors":
-	    changeState(result.scissors[move])
+	    helpers.changeState(result.scissors[move])
 	    break;
 	default:
 	    console.log("Invalid move")

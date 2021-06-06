@@ -4,8 +4,8 @@ import PlayerMoves from "./PlayerMoves.js";
 import Scoreboard from "./Scoreboard.js";
 import Status from "./Status.js";
 
-
 let Game = () => {
+
     let [Scores, setScores] = useState({
 	"bot": 0,
 	"player": 0,
@@ -29,6 +29,14 @@ let Game = () => {
 	}
 	setMatchStatus(statusCopy)
     }
+    let [botColors, setBotColors] = useState(
+	    {
+	    "rock": "",
+	    "paper": "",
+	    "scissors": "",
+	    }
+	)
+
     let changeScores = (result) => {
 	if (result === "TIE") {
 	    return
@@ -48,13 +56,30 @@ let Game = () => {
 	changeStatus(result)
 	changeScores(result)
     }
+    let changeBotColor = botMove => {
+	let colorsCopy = {...botColors}
+	for (let type in colorsCopy){
+	    if (type == botMove){
+		colorsCopy[type] = " ai-move"
+	    }
+	    else {
+		colorsCopy[type] = ""
+	    }
+	}
+	console.log(colorsCopy)
+	setBotColors(colorsCopy)
+    }
+    let helpers = {
+	"changeState": changeState,
+	"changeBotColor": changeBotColor
+    }
     return (
 	<div className="container">
 	<div>
 	    <Scoreboard scores={Scores}/>
-	    <BotMoves/>
+	    <BotMoves colors={botColors} />
 	    <Status data={matchStatus}/>
-	    <PlayerMoves handler={changeState}/>
+	    <PlayerMoves handler={helpers}/>
 	</div>
 	</div>
     )
